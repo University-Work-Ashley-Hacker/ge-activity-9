@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bds4yrxncdq4u"]
+
+[ext_resource type="Script" uid="uid://xi8vd8kk8dk5" path="res://entities/object/object_2.gd" id="1_jisvm"]
+[ext_resource type="Script" uid="uid://deav8bd2w8s26" path="res://on_retrived_from_pool.gd" id="2_p37aq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7x0ag"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_7x0ag"]
+
+[node name="Object" type="RigidBody3D" unique_id=1265056913 node_paths=PackedStringArray("timer")]
+script = ExtResource("1_jisvm")
+timer = NodePath("Management/Timer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1203766686]
+shape = SubResource("SphereShape3D_7x0ag")
+
+[node name="Visuals" type="Node3D" parent="." unique_id=935450134]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals" unique_id=1695122894]
+mesh = SubResource("SphereMesh_7x0ag")
+
+[node name="Collision" type="Node3D" parent="." unique_id=2072264007]
+
+[node name="Management" type="Node" parent="." unique_id=594626156]
+
+[node name="Timer" type="Timer" parent="Management" unique_id=928012012]
+wait_time = 3.0
+one_shot = true
+
+[node name="OnRetrivedFromPool" type="Node" parent="Management" unique_id=808161598 node_paths=PackedStringArray("pooled_object", "timer")]
+script = ExtResource("2_p37aq")
+pooled_object = NodePath("../..")
+timer = NodePath("../Timer")

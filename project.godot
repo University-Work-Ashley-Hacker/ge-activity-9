@@ -11,18 +11,31 @@ config_version=5
 [application]
 
 config/name="game-engines-activity-9"
+run/main_scene="uid://cu6jjuo8c2t4s"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*uid://yb0vf6v8cxg7"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/nhb_functions_on_the_fly/plugin.cfg", "res://addons/scenebuilder/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
-"res://addons/": "red"
+"res://addons/": "red",
+"res://common/": "orange",
+"res://entities/": "yellow",
+"res://misc/": "teal",
+"res://stages/": "purple"
 }
 
 [physics]

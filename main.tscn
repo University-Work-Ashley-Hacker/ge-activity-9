@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cu6jjuo8c2t4s"]
+
+[ext_resource type="Material" uid="uid://bafd1ky8xxw0i" path="res://stages/materials/dev_orange_256.tres" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://frqnd7a2inxi" path="res://common/classes/orbit_camera.gd" id="1_ngsbr"]
+[ext_resource type="PackedScene" uid="uid://jkuurdkfwd5h" path="res://entities/object/object.tscn" id="2_cu8y7"]
+[ext_resource type="Script" uid="uid://ca420ntu0qubt" path="res://entities/object_spawner/object_spawenr.gd" id="3_a82fw"]
+[ext_resource type="Script" uid="uid://bppmawesniowd" path="res://common/classes/object_pool.gd" id="5_27v23"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ngsbr"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_27v23"]
+sky_material = SubResource("ProceduralSkyMaterial_ngsbr")
+
+[sub_resource type="Environment" id="Environment_imwci"]
+background_mode = 2
+sky = SubResource("Sky_27v23")
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7x0ag"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7x0ag"]
+material = ExtResource("1_ig7tw")
+size = Vector3(50, 1, 50)
+
+[node name="Node3D" type="Node3D" unique_id=653425518]
+
+[node name="OrbitCam" type="Node3D" parent="." unique_id=131818138]
+script = ExtResource("1_ngsbr")
+
+[node name="Camera3D" type="Camera3D" parent="OrbitCam" unique_id=680195426]
+transform = Transform3D(0.5, -0.39220163, 0.7721256, 0, 0.89157385, 0.45287544, -0.86602545, -0.2264377, 0.4457869, 12.15568, 11.000004, 7.4683156)
+
+[node name="Environment" type="Node3D" parent="." unique_id=1840368954]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=138985762]
+environment = SubResource("Environment_imwci")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1452977445]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="Environment" unique_id=131288684]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floor" unique_id=1710456053]
+shape = SubResource("BoxShape3D_7x0ag")
+
+[node name="Visuals" type="Node3D" parent="Environment/Floor" unique_id=1912757104]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Floor/Visuals" unique_id=124209168]
+mesh = SubResource("BoxMesh_7x0ag")
+
+[node name="Collision" type="Node3D" parent="Environment/Floor" unique_id=1816337326]
+
+[node name="Management" type="Node" parent="Environment/Floor" unique_id=2041027270]
+
+[node name="Entities" type="Node3D" parent="." unique_id=1310024396]
+
+[node name="ObjectSpawenr" type="Marker3D" parent="Entities" unique_id=142512197 node_paths=PackedStringArray("obj_pool")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, 0)
+script = ExtResource("3_a82fw")
+object = ExtResource("2_cu8y7")
+obj_pool = NodePath("../ObjectPool")
+
+[node name="ObjectPool" type="Node" parent="Entities" unique_id=1184585966]
+script = ExtResource("5_27v23")
+object = ExtResource("2_cu8y7")
+debug = true
+
+[node name="Props" type="Node3D" parent="." unique_id=296880379]
