@@ -24,7 +24,7 @@ mesh = SubResource("SphereMesh_7x0ag")
 [node name="Management" type="Node" parent="." unique_id=594626156]
 
 [node name="Timer" type="Timer" parent="Management" unique_id=928012012]
-wait_time = 3.0
+wait_time = 10.0
 one_shot = true
 
 [node name="OnRetrivedFromPool" type="Node" parent="Management" unique_id=808161598 node_paths=PackedStringArray("pooled_object", "timer")]
