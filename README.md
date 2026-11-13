@@ -2,6 +2,53 @@
 Object pooling is used to reuse objects instead of destroying and creating them continuously. 
 <img width="968" height="436" alt="image" src="https://github.com/user-attachments/assets/8effc8fc-5065-44da-ae64-de1b5089e771" />
 
+# Code
+Here is the entire code for my ObjectPool.gd
+```C
+class_name ObjectPool3D
+extends Node
+
+@export_category("Dependencies")
+@export var object: PackedScene
+@export var initial_size: int = 10
+var objects: Array[Node3D]
+
+@export var debug: bool = false
+
+
+func _ready() -> void:
+	for i in initial_size:
+		var obj := _create_object()
+		objects.append(obj)
+
+func _print(text: String) -> void:
+	if debug: print_rich("[b][color=blue]ObjectPool: [/color][/b]" + text)
+
+func retrieve_from_pool() -> Node3D:
+	if objects.size() <= 0:
+		var new_obj := _create_object()
+		new_obj.set_process(true)
+		_print("Created new")
+		return new_obj
+	
+	var obj = objects.pop_back()
+	obj.set_process(true)
+	_print("Retrieved from pool")
+	return obj
+
+func return_to_pool(obj: Node3D) -> void:
+	obj.set_process(false)
+	obj.reparent(self)
+	self.remove_child(obj)
+	objects.append(obj)
+	obj.returned_to_pool.emit()
+
+func _create_object() -> Node3D:
+	var instance := object.instantiate() as Node3D
+	instance.pool = self
+	return instance
+```
+
 # Profiler before & after
 ## No Pooling:
 <img width="1332" height="422" alt="2026_11_13-15:01:05" src="https://github.com/user-attachments/assets/a19d591c-a03c-4a59-9712-920b744cf71a" />
