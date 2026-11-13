@@ -6,9 +6,11 @@ Object pooling is used to reuse objects instead of destroying and creating them 
 ## No Pooling:
 <img width="1332" height="422" alt="2026_11_13-15:01:05" src="https://github.com/user-attachments/assets/a19d591c-a03c-4a59-9712-920b744cf71a" />
 <img width="1356" height="699" alt="2026_11_13-15:05:19" src="https://github.com/user-attachments/assets/a74b3433-893c-40a0-9776-f9c8268a0fea" />
+
 ## With Pooling:
 <img width="1352" height="681" alt="2026_11_13-14:59:11" src="https://github.com/user-attachments/assets/4268e684-0759-4022-8f78-08c1d65e1939" />
 <img width="1347" height="452" alt="2026_11_13-15:06:35" src="https://github.com/user-attachments/assets/045fc13b-0d2f-448f-ac84-8b887b60deac" />
+The graph is smaller in this last image because I resized the window, not because of some crazy performance gains
 
 # Performance
 Overall I didn't notice any difference in Godot. Most of the lag came from the physics server trying to process thousands of objects. I couldn't even find Node creation/deletion/memory allocation in the profiler.
